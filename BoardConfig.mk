@@ -41,16 +41,19 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
 
 # Kernel (prebuilt: our own TALIH-PD1 4.14.186 build with display/touch fixes)
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image
-BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt
 BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_BASE := 0x40080000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 buildvariant=user
 BOARD_MKBOOTIMG_ARGS := --base 0x40080000 --pagesize 2048 --ramdisk_offset 0x55000000 --tags_offset 0x54000000
 
-# MTK boots with a separate dtb container (mkdtimg) appended; keep the stock one
+# dtb: stock boot.img uses header v2 with a separate dtb section. The first
+# build produced header v0 (no dtb -> kernel cannot boot). Force v2 and feed
+# the extracted plain FDT via PREBUILT_DTBIMAGE_DIR (build packs *.dtb there
+# with mkdtimg into the dtb section).
+BOARD_BOOTIMG_HEADER_VERSION := 2
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
-BOARD_PREBUILT_DTBIMAGE := $(DEVICE_PATH)/prebuilt/dtb
+BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/dtb
 
 # Display / graphics (MTK framebuffer, not DRM)
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
