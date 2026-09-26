@@ -72,8 +72,7 @@ jobs:
         run: |
           set -euxo pipefail
           mkdir -p "twrp-src/$DEVICE_PATH"
-          cp -r . "twrp-src/$DEVICE_PATH/"
-          rm -rf "twrp-src/$DEVICE_PATH/twrp-src" "twrp-src/$DEVICE_PATH/.git" || true
+          rsync -a --exclude twrp-src --exclude .git ./ "twrp-src/$DEVICE_PATH/"
 
       - name: Build TWRP boot image
         run: |
