@@ -51,7 +51,7 @@ BOARD_MKBOOTIMG_ARGS := --base 0x40080000 --pagesize 2048 --ramdisk_offset 0x550
 # build produced header v0 (no dtb -> kernel cannot boot). Force v2 and feed
 # the extracted plain FDT via PREBUILT_DTBIMAGE_DIR (build packs *.dtb there
 # with mkdtimg into the dtb section).
-BOARD_BOOTIMG_HEADER_VERSION := 2
+BOARD_BOOT_HEADER_VERSION := 2
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/dtb
 
