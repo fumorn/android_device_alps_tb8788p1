@@ -33,6 +33,11 @@ BOARD_USES_MTK_HARDWARE := true
 AB_OTA_UPDATER := true
 BOARD_USES_RECOVERY_AS_BOOT := true
 AB_OTA_PARTITIONS += boot vendor vbmeta vbmeta_system vbmeta_vendor dtbo logo
+# The real boot partition is 32MB, but the TWRP ramdisk (full UI + tools)
+# makes boot.img ~46MB. Phase 1 targets `fastboot boot` (loads from RAM,
+# no partition limit), so only satisfy the mkbootimg size check here.
+# A flashable coexistence image will need ramdisk trimming first.
+BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
 
 # Kernel (prebuilt: our own TALIH-PD1 4.14.186 build with display/touch fixes)
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image
