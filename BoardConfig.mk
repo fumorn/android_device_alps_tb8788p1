@@ -45,13 +45,13 @@ BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_BASE := 0x40080000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 buildvariant=user
-BOARD_MKBOOTIMG_ARGS := --base 0x40080000 --pagesize 2048 --ramdisk_offset 0x55000000 --tags_offset 0x54000000
+BOARD_MKBOOTIMG_ARGS := --base 0x40080000 --pagesize 2048 --ramdisk_offset 0x55000000 --tags_offset 0x54000000 --header_version 2
 
-# dtb: stock boot.img uses header v2 with a separate dtb section. The first
-# build produced header v0 (no dtb -> kernel cannot boot). Force v2 and feed
-# the extracted plain FDT via PREBUILT_DTBIMAGE_DIR (build packs *.dtb there
-# with mkdtimg into the dtb section).
-BOARD_BOOT_HEADER_VERSION := 2
+# dtb: stock boot.img uses header v2 with a separate dtb section; mkbootimg
+# only emits the dtb section when header_version >= 2. TWRP 12.1 has no
+# BOARD_BOOT_HEADER_VERSION variable, so --header_version goes through
+# BOARD_MKBOOTIMG_ARGS. The plain FDT (mkdtimg container unpacked) is fed
+# via PREBUILT_DTBIMAGE_DIR (build packs *.dtb there into dtb.img).
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/dtb
 
