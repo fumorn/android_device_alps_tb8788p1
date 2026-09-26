@@ -3,7 +3,7 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/twrp_tb8788p1.mk
+    device/alps/tb8788p1/twrp_tb8788p1.mk
 
 COMMON_LUNCH_CHOICES := \
     twrp_tb8788p1-eng
