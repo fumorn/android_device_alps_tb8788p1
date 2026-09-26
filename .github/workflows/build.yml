@@ -73,6 +73,10 @@ jobs:
           set -euxo pipefail
           mkdir -p "twrp-src/$DEVICE_PATH"
           rsync -a --exclude twrp-src --exclude .git ./ "twrp-src/$DEVICE_PATH/"
+          echo "=== device tree contents ==="
+          ls -la "twrp-src/$DEVICE_PATH/"
+          ls -la twrp-src/device/alps/ 2>/dev/null
+          find twrp-src/device -name "vendorsetup.sh" 2>/dev/null
 
       - name: Build TWRP boot image
         run: |
